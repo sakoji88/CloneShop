@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07b2469f50254d93be300f732d74fd43" Name="Diagram1">
+        <EntityTypeShape EntityType="CloneShopDBModel.Brands" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.CartItems" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Carts" Width="1.5" PointX="3" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Categories" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.OrderItems" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Orders" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.OrderStatuses" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.ProductImages" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Products" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.ProductStatuses" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Receipts" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Roles" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.TelegramLinks" Width="1.5" PointX="7.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CloneShopDBModel.Users" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Products_Brands" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_CartItems_Carts" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_CartItems_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Carts_Carts" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Products_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_OrderItems_OrderItems" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_OrderItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Orders_OrderStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Receipts_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_ProductImages_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Products_ProductStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="CloneShopDBModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
