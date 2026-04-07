@@ -9,5 +9,6 @@ namespace CloneShop.ApplicationData
     internal class AppConnect
     {
         public static CloneShopDBEntities model01;
+        public static Users CurrentUser;
     }
 }

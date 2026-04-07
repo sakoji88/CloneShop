@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CloneShop.ApplicationData;
 using CloneShop.Pages;
 
 namespace CloneShop.Pages
@@ -28,12 +29,41 @@ namespace CloneShop.Pages
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            
+            string login = txtLogin.Text;
+            string password = txtPassword.Password;
+
+            if (string.IsNullOrEmpty(login))
+            {
+                MessageBox.Show("Введите логин!");
+                txtLogin.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Введите пароль!");
+                txtPassword.Focus();
+                return;
+            }
+
+            var userObj = AppConnect.model01.Users.FirstOrDefault(x => 
+            x.Login == login && x.Password == password);
+
+            if (userObj == null)
+            {
+                MessageBox.Show("Неверный логин или пароль");
+                txtPassword.Clear();
+                txtLogin.Focus();
+                return;
+            }
+            AppConnect.CurrentUser = userObj;
+            AppFrame.frmMain.Navigate(new CatalogPage());
+
+            MessageBox.Show("Залетай," + userObj.FullName);
         }
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
-
+            AppFrame.frmMain.Navigate(new RegisterPage());
         }
     }
 }
