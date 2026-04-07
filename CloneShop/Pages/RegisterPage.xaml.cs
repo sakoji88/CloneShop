@@ -109,7 +109,7 @@ namespace CloneShop.Pages
             MessageBox.Show("Регистрация прошла успешно");
             AppFrame.frmMain.GoBack();
         }
-
+        //for commit
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.GoBack();
