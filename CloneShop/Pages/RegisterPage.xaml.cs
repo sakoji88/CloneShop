@@ -106,6 +106,12 @@ namespace CloneShop.Pages
             newUser.IsBlocked = false;
             AppConnect.model01.Users.Add(newUser);
             AppConnect.model01.SaveChanges();
+            Carts newCart = new Carts();
+            newCart.UserID = newUser.UserID;
+            newCart.CreatedAt = DateTime.Now;
+
+            AppConnect.model01.Carts.Add(newCart);
+            AppConnect.model01.SaveChanges();
             MessageBox.Show("Регистрация прошла успешно");
             AppFrame.frmMain.GoBack();
         }

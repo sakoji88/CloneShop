@@ -1,0 +1,87 @@
+﻿<Page x:Class="CloneShop.Pages.AddEditProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="AddEditProductPage">
+
+    <Grid Background="#F5F5F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <Grid Grid.Row="0" Background="#2D2D30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock x:Name="tbTitle"
+                       Grid.Column="0"
+                       Text="Товар"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       Margin="20,0,0,0"/>
+
+            <Button Grid.Column="1"
+                    x:Name="btnBack"
+                    Content="Назад"
+                    Width="90"
+                    Height="35"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="btnBack_Click"/>
+        </Grid>
+
+        <!-- Форма -->
+        <StackPanel Grid.Row="1"
+                    Width="350"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="Название товара"/>
+            <TextBox x:Name="txtName"
+                     Height="30"
+                     Margin="0,5,0,10"/>
+
+            <TextBlock Text="Описание"/>
+            <TextBox x:Name="txtDescription"
+                     Height="80"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Margin="0,5,0,10"/>
+
+            <TextBlock Text="Цена"/>
+            <TextBox x:Name="txtPrice"
+                     Height="30"
+                     Margin="0,5,0,10"/>
+
+            <TextBlock Text="Количество"/>
+            <TextBox x:Name="txtQuantity"
+                     Height="30"
+                     Margin="0,5,0,10"/>
+
+            <TextBlock Text="Категория"/>
+            <ComboBox x:Name="cmbCategory"
+                      Height="30"
+                      Margin="0,5,0,10"/>
+
+            <TextBlock Text="Бренд"/>
+            <ComboBox x:Name="cmbBrand"
+                      Height="30"
+                      Margin="0,5,0,10"/>
+
+            <TextBlock Text="Статус"/>
+            <ComboBox x:Name="cmbStatus"
+                      Height="30"
+                      Margin="0,5,0,20"/>
+
+            <Button x:Name="btnSave"
+                    Content="Сохранить"
+                    Height="35"
+                    Click="btnSave_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>

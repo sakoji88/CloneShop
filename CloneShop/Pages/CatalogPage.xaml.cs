@@ -53,7 +53,7 @@ namespace CloneShop.Pages
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Го в админку");
+            AppFrame.frmMain.Navigate(new AdminProductsPage());
         }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -126,6 +126,64 @@ namespace CloneShop.Pages
         private void cmbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LoadProducts();
+        }
+        private void btnAddToCart_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button == null)
+                return;
+
+            Products selectedProduct = button.Tag as Products;
+
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Товар не выбран");
+                return;
+            }
+
+            var userCart = AppConnect.model01.Carts
+                .FirstOrDefault(x => x.UserID == AppConnect.CurrentUser.UserID);
+
+            if (userCart == null)
+            {
+                MessageBox.Show("Корзина пользователя не найдена");
+                return;
+            }
+
+            var existingCartItem = AppConnect.model01.CartItems
+                .FirstOrDefault(x =>
+                    x.CartID == userCart.CartID &&
+                    x.ProductID == selectedProduct.ProductID);
+
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity += 1;
+            }
+            else
+            {
+                CartItems newCartItem = new CartItems();
+                newCartItem.CartID = userCart.CartID;
+                newCartItem.ProductID = selectedProduct.ProductID;
+                newCartItem.Quantity = 1;
+                newCartItem.PriceAtMoment = selectedProduct.Price;
+
+                AppConnect.model01.CartItems.Add(newCartItem);
+            }
+
+            AppConnect.model01.SaveChanges();
+
+            MessageBox.Show("Товар добавлен в корзину");
+        }
+
+        private void BtnCart_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frmMain.Navigate(new CartPage());
+        }
+
+        private void btnProfile_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frmMain.Navigate(new ProfilePage());
         }
     }
 
