@@ -185,6 +185,7 @@ HorizontalAlignment="Right"
                     <DataTemplate>
                         <Border BorderBrush="Black"
                     BorderThickness="1"
+                                Width="1855"
                     CornerRadius="8"
                     Margin="5"
                     Padding="10"

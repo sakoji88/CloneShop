@@ -13,9 +13,9 @@
                     HorizontalAlignment="Center">
             <TextBlock TextWrapping="Wrap" Text="Clone Shop" Foreground="White" FontSize="36" Width="194" FontFamily="Yu Gothic" Margin="20"/>
             <TextBlock TextWrapping="Wrap" Text="Login:" Foreground="White" Width="194" FontFamily="Yu Gothic" FontSize="16"/>
-            <TextBox x:Name="txtLogin" TextWrapping="Wrap" Height="20" Width="194"/>
+            <TextBox x:Name="txtLogin" TextWrapping="Wrap" Height="20" Width="194" MaxLength="50"/>
             <TextBlock TextWrapping="Wrap" Text="Password:" Foreground="White" Width="194" FontFamily="Yu Gothic" FontSize="16"/>
-            <PasswordBox x:Name="txtPassword" Width="193" Height="20"/>
+            <PasswordBox x:Name="txtPassword" Width="193" Height="20" MaxLength="50"/>
             <Button x:Name="btnLogin" Content="Войти" Width="126" Margin="30" Height="35" Background="#FFD4D4D4" Click="btnLogin_Click"/>
             <Button x:Name="btnReg" Content="Регистрация" Width="230" Height="24" Margin="80" HorizontalAlignment="Center" Background="#FFD4D4D4" Click="btnReg_Click"/>
         </StackPanel>

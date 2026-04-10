@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
-
+using Microsoft.VisualBasic;
 namespace CloneShop.Pages
 {
     public partial class AddEditProductPage : Page
@@ -144,10 +144,10 @@ namespace CloneShop.Pages
                     AppConnect.model01.Products.Add(currentProduct);
                 }
 
-                AppConnect.model01.SaveChanges();
+
                 var oldImages = AppConnect.model01.ProductImages
-    .Where(x => x.ProductID == currentProduct.ProductID)
-    .ToList();
+     .Where(x => x.ProductID == currentProduct.ProductID)
+     .ToList();
 
                 foreach (var oldImage in oldImages)
                 {
@@ -276,5 +276,82 @@ namespace CloneShop.Pages
             lbAdditionalImages.ItemsSource = additionalImages;
         }
         private List<string> additionalImages = new List<string>();
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            string newCategoryName = Microsoft.VisualBasic.Interaction.InputBox (
+                "Введите название новой категории:",
+                "Добавление категории",
+                "");
+
+            if (string.IsNullOrWhiteSpace(newCategoryName))
+                return;
+
+            var existingCategory = AppConnect.model01.Categories
+                .FirstOrDefault(x => x.CategoryName == newCategoryName);
+
+
+            if (existingCategory != null)
+            {
+                MessageBox.Show("Такая категория уже существует");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(newCategoryName))
+                return;
+
+            if (newCategoryName.Length > 100)
+            {
+                MessageBox.Show("Название слишком длинное. Максимум 100 символов.");
+                return;
+            }
+
+                Categories newCategory = new Categories();
+            newCategory.CategoryName = newCategoryName;
+
+            AppConnect.model01.Categories.Add(newCategory);
+            AppConnect.model01.SaveChanges();
+
+            LoadComboBoxes();
+            cmbCategory.SelectedValue = newCategory.CategoryID;
+
+            MessageBox.Show("Категория добавлена");
+        }
+        private void btnAddBrand_Click(object sender, RoutedEventArgs e)
+        {
+            string newBrandName = Microsoft.VisualBasic.Interaction.InputBox(
+                "Введите название нового бренда:",
+                "Добавление бренда",
+                "");
+
+            if (string.IsNullOrWhiteSpace(newBrandName))
+                return;
+
+            var existingBrand = AppConnect.model01.Brands
+                .FirstOrDefault(x => x.BrandName == newBrandName);
+            if (string.IsNullOrWhiteSpace(newBrandName))
+                return;
+
+            if (newBrandName.Length > 50)
+            {
+                MessageBox.Show("Название слишком длинное. Максимум 50 символов.");
+                return;
+            }
+            if (existingBrand != null)
+            {
+                MessageBox.Show("Такой бренд уже существует");
+                return;
+            }
+
+
+            Brands newBrand = new Brands();
+            newBrand.BrandName = newBrandName;
+
+            AppConnect.model01.Brands.Add(newBrand);
+            AppConnect.model01.SaveChanges();
+
+            LoadComboBoxes();
+            cmbBrand.SelectedValue = newBrand.BrandID;
+
+            MessageBox.Show("Бренд добавлен");
+        }
     }
 }

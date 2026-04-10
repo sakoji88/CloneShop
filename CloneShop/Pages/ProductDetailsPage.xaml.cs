@@ -55,11 +55,26 @@ namespace CloneShop.Pages
 
         private void LoadAdditionalImages()
         {
+            List<string> imagePaths = new List<string>();
+
+            // Сначала добавляем главную картинку
+            if (!string.IsNullOrWhiteSpace(currentProduct.MainImage))
+            {
+                string mainImagePath = Path.Combine(
+                    AppDomain.CurrentDomain.BaseDirectory,
+                    "Images",
+                    currentProduct.MainImage);
+
+                if (File.Exists(mainImagePath))
+                {
+                    imagePaths.Add(mainImagePath);
+                }
+            }
+
+            // Потом добавляем дополнительные изображения
             var images = AppConnect.model01.ProductImages
                 .Where(x => x.ProductID == currentProduct.ProductID)
                 .ToList();
-
-            List<string> imagePaths = new List<string>();
 
             foreach (var image in images)
             {
@@ -68,24 +83,16 @@ namespace CloneShop.Pages
                     "Images",
                     image.ImagePath);
 
-                if (File.Exists(imagePath))
+                if (File.Exists(imagePath) && !imagePaths.Contains(imagePath))
                 {
                     imagePaths.Add(imagePath);
                 }
             }
 
-            lbImages.ItemsSource = imagePaths;
+            icImages.ItemsSource = imagePaths;
         }
 
-        private void lbImages_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            string selectedImage = lbImages.SelectedItem as string;
-
-            if (string.IsNullOrWhiteSpace(selectedImage))
-                return;
-
-            imgMain.Source = new BitmapImage(new Uri(selectedImage));
-        }
+       
 
         private void btnAddToCart_Click(object sender, RoutedEventArgs e)
         {
@@ -126,6 +133,21 @@ namespace CloneShop.Pages
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.GoBack();
+        }
+
+        private void btnThumbnail_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button == null)
+                return;
+
+            string selectedImage = button.Tag as string;
+
+            if (string.IsNullOrWhiteSpace(selectedImage))
+                return;
+
+            imgMain.Source = new BitmapImage(new Uri(selectedImage));
         }
     }
 }

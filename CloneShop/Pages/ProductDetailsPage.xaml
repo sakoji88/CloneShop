@@ -57,27 +57,34 @@
                            FontWeight="Bold"
                            Margin="0,15,0,10"/>
 
-                <ListBox x:Name="lbImages"
-                         Height="220"
-                         SelectionChanged="lbImages_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Gray"
-                                    BorderThickness="1"
-                                    Margin="3"
-                                    Padding="3"
-                                    Background="White">
-                                <Image Source="{Binding}"
-                                       Width="90"
-                                       Height="90"
-                                       Stretch="UniformToFill"/>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+              VerticalScrollBarVisibility="Disabled"
+              Height="120">
+                    <ItemsControl x:Name="icImages">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
 
-            <!-- Правая часть -->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Tag="{Binding}"
+                        Margin="3"
+                        Padding="0"
+                        BorderThickness="1" Click="btnThumbnail_Click">
+                                    <Image Source="{Binding}"
+                           Width="90"
+                           Height="90"
+                           Stretch="UniformToFill"/>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                </StackPanel>
+
+                <!-- Правая часть -->
             <StackPanel Grid.Column="1" Margin="20,0,0,0">
                 <TextBlock x:Name="tbName"
                            FontSize="24"
@@ -118,6 +125,7 @@
                         Width="150"
                         Height="35"
                         Margin="0,25,0,0"
+                        HorizontalAlignment="Left"
                         Click="btnAddToCart_Click"/>
             </StackPanel>
         </Grid>

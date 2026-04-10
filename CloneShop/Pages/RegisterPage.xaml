@@ -21,17 +21,17 @@
            Margin="0,0,0,5"
            HorizontalAlignment="Center"/>
             <TextBlock TextWrapping="Wrap" Text="Фио:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <TextBox x:Name="txtName" TextWrapping="Wrap" Height="20" Width="194"/>
-            <TextBlock TextWrapping="Wrap" Text="Логин:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <TextBox x:Name="txtLogin" TextWrapping="Wrap" Height="20" Width="194"/>
+            <TextBox x:Name="txtName" TextWrapping="Wrap" Height="20" Width="194" MaxLength="70"/>
+            <TextBlock TextWrapping="Wrap" Text="Логин:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5" />
+            <TextBox x:Name="txtLogin" TextWrapping="Wrap" Height="20" Width="194" MaxLength="50"/>
             <TextBlock TextWrapping="Wrap" Text="Пароль:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <PasswordBox x:Name="txtPassword" Height="20" Width="194"/>
+            <PasswordBox x:Name="txtPassword" Height="20" Width="194" MaxLength="50"/>
             <TextBlock TextWrapping="Wrap" Text="Повторите пароль:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <PasswordBox x:Name="txtPasswordRepeat" Height="20" Width="194"/>
+            <PasswordBox x:Name="txtPasswordRepeat" Height="20" Width="194" MaxLength="50"/>
             <TextBlock TextWrapping="Wrap" Text="Электронная почта:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <TextBox x:Name="txtEmail" TextWrapping="Wrap" Height="20" Width="194"/>
+            <TextBox x:Name="txtEmail" TextWrapping="Wrap" Height="20" Width="194" MaxLength="50"/>
             <TextBlock TextWrapping="Wrap" Text="Номер телефона:" Foreground="White" Width="194" FontFamily="Segoe UI Semibold" FontSize="16" Margin="5"/>
-            <TextBox x:Name="txtPhone" TextWrapping="Wrap" Height="20" Width="194"/>
+            <TextBox x:Name="txtPhone" TextWrapping="Wrap" Height="20" Width="194" MaxLength="30"/>
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Center">

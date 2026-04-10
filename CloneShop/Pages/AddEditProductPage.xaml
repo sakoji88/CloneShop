@@ -47,36 +47,66 @@
             <TextBlock Text="Название товара"/>
             <TextBox x:Name="txtName"
                      Height="30"
-                     Margin="0,5,0,10"/>
+                     Margin="0,5,0,10" MaxLength="150"/>
 
             <TextBlock Text="Описание"/>
             <TextBox x:Name="txtDescription"
                      Height="80"
                      TextWrapping="Wrap"
                      AcceptsReturn="True"
-                     Margin="0,5,0,10"/>
+                     Margin="0,5,0,10"
+                     MaxLength="120"/>
 
             <TextBlock Text="Цена"/>
             <TextBox x:Name="txtPrice"
                      Height="30"
-                     Margin="0,5,0,10"/>
+                     Margin="0,5,0,10" MaxLength="15"/>
 
             <TextBlock Text="Количество"/>
             <TextBox x:Name="txtQuantity"
                      Height="30"
-                     Margin="0,5,0,10"/>
+                     Margin="0,5,0,10"
+                     MaxLength="4"/>
 
-            <TextBlock Text="Категория"/>
-            <ComboBox x:Name="cmbCategory"
-                      Height="30"
-                      Margin="0,5,0,10"/>
+                <TextBlock Text="Категория"/>
+                <Grid Margin="0,5,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
 
-            <TextBlock Text="Бренд"/>
-            <ComboBox x:Name="cmbBrand"
-                      Height="30"
-                      Margin="0,5,0,10"/>
+                    <ComboBox x:Name="cmbCategory"
+              Grid.Column="0"
+              Height="30"
+              Margin="0,0,10,0"/>
 
-            <TextBlock Text="Статус"/>
+                    <Button x:Name="btnAddCategory"
+            Grid.Column="1"
+            Content="+ Категория"
+            Height="30"
+            Click="btnAddCategory_Click"/>
+                </Grid>
+
+                <TextBlock Text="Бренд"/>
+                <Grid Margin="0,5,0,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox x:Name="cmbBrand"
+              Grid.Column="0"
+              Height="30"
+              Margin="0,0,10,0"/>
+
+                    <Button x:Name="btnAddBrand"
+            Grid.Column="1"
+            Content="+ Бренд"
+            Height="30"
+            Click="btnAddBrand_Click"/>
+                </Grid>
+
+                <TextBlock Text="Статус"/>
             <ComboBox x:Name="cmbStatus"
                       Height="30"
                       Margin="0,5,0,20"/>
@@ -84,6 +114,7 @@
             <TextBox x:Name="txtImage"
          Height="30"
          Margin="0,5,0,10"
+                     MaxLength="255"
          IsReadOnly="True"/>
 
             <Button x:Name="btnChooseImage"
