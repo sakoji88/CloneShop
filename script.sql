@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [CloneShopDB]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Database [CloneShopDB]    Script Date: 10.04.2026 13:51:49 ******/
 CREATE DATABASE [CloneShopDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,7 +82,7 @@ ALTER DATABASE [CloneShopDB] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEAN
 GO
 USE [CloneShopDB]
 GO
-/****** Object:  Table [dbo].[Brands]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Brands]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -96,7 +96,7 @@ CREATE TABLE [dbo].[Brands](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[CartItems]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[CartItems]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -113,7 +113,7 @@ CREATE TABLE [dbo].[CartItems](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Carts]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Carts]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -128,7 +128,7 @@ CREATE TABLE [dbo].[Carts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -142,7 +142,7 @@ CREATE TABLE [dbo].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderItems]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[OrderItems]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -159,7 +159,7 @@ CREATE TABLE [dbo].[OrderItems](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +176,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderStatuses]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[OrderStatuses]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -190,7 +190,7 @@ CREATE TABLE [dbo].[OrderStatuses](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductImages]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[ProductImages]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -205,7 +205,7 @@ CREATE TABLE [dbo].[ProductImages](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -226,7 +226,7 @@ CREATE TABLE [dbo].[Products](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductStatuses]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[ProductStatuses]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -240,7 +240,7 @@ CREATE TABLE [dbo].[ProductStatuses](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Receipts]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Receipts]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -256,7 +256,7 @@ CREATE TABLE [dbo].[Receipts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Roles]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -270,7 +270,7 @@ CREATE TABLE [dbo].[Roles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TelegramLinks]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[TelegramLinks]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -286,7 +286,7 @@ CREATE TABLE [dbo].[TelegramLinks](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 10.04.2026 13:51:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -308,91 +308,146 @@ CREATE TABLE [dbo].[Users](
 ) ON [PRIMARY]
 GO
 SET IDENTITY_INSERT [dbo].[Brands] ON 
-
+GO
 INSERT [dbo].[Brands] ([BrandID], [BrandName]) VALUES (1, N'Valakas Industries')
+GO
 INSERT [dbo].[Brands] ([BrandID], [BrandName]) VALUES (2, N'George Floyd Corp')
+GO
 INSERT [dbo].[Brands] ([BrandID], [BrandName]) VALUES (3, N'Burmalda Factory')
+GO
 INSERT [dbo].[Brands] ([BrandID], [BrandName]) VALUES (4, N'BioanalReplica Systems')
+GO
+INSERT [dbo].[Brands] ([BrandID], [BrandName]) VALUES (5, N'Autistic Kids')
+GO
 SET IDENTITY_INSERT [dbo].[Brands] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Carts] ON 
-
+GO
 INSERT [dbo].[Carts] ([CartID], [UserID], [CreatedAt]) VALUES (1, 10, CAST(N'2026-04-09T13:42:06.893' AS DateTime))
+GO
 INSERT [dbo].[Carts] ([CartID], [UserID], [CreatedAt]) VALUES (2, 12, CAST(N'2026-04-09T13:42:52.030' AS DateTime))
+GO
 INSERT [dbo].[Carts] ([CartID], [UserID], [CreatedAt]) VALUES (3, 13, CAST(N'2026-04-09T13:54:22.833' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[Carts] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Categories] ON 
-
+GO
 INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (1, N'Боевой клон')
+GO
 INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (2, N'Премиум-клон')
+GO
 INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (3, N'Кибер клон')
+GO
 INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (4, N'Нига клон')
+GO
 INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (5, N'Рофло клон')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (6, N'Водяные клоны')
+GO
 SET IDENTITY_INSERT [dbo].[Categories] OFF
 GO
 SET IDENTITY_INSERT [dbo].[OrderItems] ON 
-
+GO
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID], [Quantity], [PriceAtMoment]) VALUES (1, 1, 1, 1, CAST(14999.90 AS Decimal(10, 2)))
+GO
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID], [Quantity], [PriceAtMoment]) VALUES (2, 2, 1, 1, CAST(14999.90 AS Decimal(10, 2)))
+GO
 INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID], [Quantity], [PriceAtMoment]) VALUES (3, 3, 3, 1, CAST(45999.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[OrderItems] ([OrderItemID], [OrderID], [ProductID], [Quantity], [PriceAtMoment]) VALUES (1002, 1002, 1, 1, CAST(14999.90 AS Decimal(10, 2)))
+GO
 SET IDENTITY_INSERT [dbo].[OrderItems] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Orders] ON 
-
+GO
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderDate], [TotalAmount], [OrderStatusID]) VALUES (1, 13, CAST(N'2026-04-09T13:55:08.490' AS DateTime), CAST(14999.90 AS Decimal(10, 2)), 1)
+GO
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderDate], [TotalAmount], [OrderStatusID]) VALUES (2, 13, CAST(N'2026-04-09T14:55:49.410' AS DateTime), CAST(14999.90 AS Decimal(10, 2)), 1)
+GO
 INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderDate], [TotalAmount], [OrderStatusID]) VALUES (3, 13, CAST(N'2026-04-09T15:21:52.477' AS DateTime), CAST(45999.00 AS Decimal(10, 2)), 1)
+GO
+INSERT [dbo].[Orders] ([OrderID], [UserID], [OrderDate], [TotalAmount], [OrderStatusID]) VALUES (1002, 13, CAST(N'2026-04-10T12:25:38.497' AS DateTime), CAST(14999.90 AS Decimal(10, 2)), 1)
+GO
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 GO
 SET IDENTITY_INSERT [dbo].[OrderStatuses] ON 
-
+GO
 INSERT [dbo].[OrderStatuses] ([OrderStatusID], [StatusName]) VALUES (1, N'Создан')
+GO
 INSERT [dbo].[OrderStatuses] ([OrderStatusID], [StatusName]) VALUES (2, N'Оплачен')
+GO
 INSERT [dbo].[OrderStatuses] ([OrderStatusID], [StatusName]) VALUES (3, N'Отменен')
+GO
 INSERT [dbo].[OrderStatuses] ([OrderStatusID], [StatusName]) VALUES (4, N'Выдан')
+GO
 SET IDENTITY_INSERT [dbo].[OrderStatuses] OFF
 GO
+SET IDENTITY_INSERT [dbo].[ProductImages] ON 
+GO
+INSERT [dbo].[ProductImages] ([ImageID], [ProductID], [ImagePath]) VALUES (3, 4, N'462c77ff76b14de3833341e415504027.jpg')
+GO
+SET IDENTITY_INSERT [dbo].[ProductImages] OFF
+GO
 SET IDENTITY_INSERT [dbo].[Products] ON 
-
-INSERT [dbo].[Products] ([ProductID], [ProductName], [Description], [Price], [QuantityInStock], [CategoryID], [StatusID], [MainImage], [BrandID]) VALUES (1, N'Кибер Глад Валакассс', N'Кибернетическая модель патау Глада Валакасааааааа', CAST(14999.90 AS Decimal(10, 2)), 5, 3, 1, N'glad1.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [Description], [Price], [QuantityInStock], [CategoryID], [StatusID], [MainImage], [BrandID]) VALUES (1, N'Кибер Глад Валакассс', N'Кибернетическая модель патау Глада Валакасааааааа', CAST(14999.90 AS Decimal(10, 2)), 5, 3, 1, N'cyborg-glad.png', 1)
+GO
 INSERT [dbo].[Products] ([ProductID], [ProductName], [Description], [Price], [QuantityInStock], [CategoryID], [StatusID], [MainImage], [BrandID]) VALUES (3, N'Нига Глад Валакас', N'Черномазая точная копия патау Глада Валакаса', CAST(45999.00 AS Decimal(10, 2)), 2, 4, 1, N'nigaglad.jpg', 1)
+GO
 INSERT [dbo].[Products] ([ProductID], [ProductName], [Description], [Price], [QuantityInStock], [CategoryID], [StatusID], [MainImage], [BrandID]) VALUES (4, N'Кибер Джордж Флойд', N'Легенда..... Но теперь кибернетическая и без зависимостей', CAST(4999.00 AS Decimal(10, 2)), 6, 3, 1, N'george.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [Description], [Price], [QuantityInStock], [CategoryID], [StatusID], [MainImage], [BrandID]) VALUES (5, N'динь динь динь диринь', N'динь динь григорий  moroz', CAST(1499999.99 AS Decimal(10, 2)), 1, 5, 4, N'e8ri3i1aqlwtr1i2ydv9rn2js74ek1z3.png', 3)
+GO
 SET IDENTITY_INSERT [dbo].[Products] OFF
 GO
 SET IDENTITY_INSERT [dbo].[ProductStatuses] ON 
-
+GO
 INSERT [dbo].[ProductStatuses] ([StatusID], [StatusName]) VALUES (1, N'В наличии')
+GO
 INSERT [dbo].[ProductStatuses] ([StatusID], [StatusName]) VALUES (2, N'Нет в наличии')
+GO
 INSERT [dbo].[ProductStatuses] ([StatusID], [StatusName]) VALUES (3, N'Архив')
+GO
 INSERT [dbo].[ProductStatuses] ([StatusID], [StatusName]) VALUES (4, N'Предзаказ')
+GO
 SET IDENTITY_INSERT [dbo].[ProductStatuses] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Receipts] ON 
-
+GO
 INSERT [dbo].[Receipts] ([ReceiptID], [OrderID], [PdfPath], [CreatedAt]) VALUES (1, 2, N'Receipts/receipt_2.pdf', CAST(N'2026-04-09T14:55:49.487' AS DateTime))
+GO
 INSERT [dbo].[Receipts] ([ReceiptID], [OrderID], [PdfPath], [CreatedAt]) VALUES (2, 3, N'C:\Users\10230037\Source\Repos\CloneShop\CloneShop\bin\Debug\Receipts\receipt_3.pdf', CAST(N'2026-04-09T15:21:52.767' AS DateTime))
+GO
+INSERT [dbo].[Receipts] ([ReceiptID], [OrderID], [PdfPath], [CreatedAt]) VALUES (1002, 1002, N'C:\Users\10230037\Source\Repos\CloneShop\CloneShop\bin\Debug\Receipts\receipt_1002.pdf', CAST(N'2026-04-10T12:25:38.837' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[Receipts] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Roles] ON 
-
+GO
 INSERT [dbo].[Roles] ([RoleID], [RoleName]) VALUES (1, N'Администратор')
+GO
 INSERT [dbo].[Roles] ([RoleID], [RoleName]) VALUES (2, N'Пользователь')
+GO
 SET IDENTITY_INSERT [dbo].[Roles] OFF
 GO
 SET IDENTITY_INSERT [dbo].[TelegramLinks] ON 
-
-INSERT [dbo].[TelegramLinks] ([TelegramLinkID], [Url], [QrImagePath], [IsActive]) VALUES (5, N'https://t.me/gnidenburgpusher', N'', 1)
+GO
+INSERT [dbo].[TelegramLinks] ([TelegramLinkID], [Url], [QrImagePath], [IsActive]) VALUES (5, N'https://t.me/maddysontg', N'qr-code.png', 1)
+GO
 SET IDENTITY_INSERT [dbo].[TelegramLinks] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Users] ON 
-
+GO
 INSERT [dbo].[Users] ([UserID], [FullName], [Login], [Password], [Email], [Phone], [RoleID], [CreatedAt], [IsBlocked]) VALUES (10, N'Админ', N'admin', N'admin123', N'admin@mail.ru', N'7999000000', 1, CAST(N'2026-04-02T00:00:00.000' AS DateTime), 0)
-INSERT [dbo].[Users] ([UserID], [FullName], [Login], [Password], [Email], [Phone], [RoleID], [CreatedAt], [IsBlocked]) VALUES (12, N'Тест', N'user', N'user', N'user@mail.ru', N'7999191929', 2, CAST(N'2026-04-02T22:57:06.893' AS DateTime), 0)
+GO
+INSERT [dbo].[Users] ([UserID], [FullName], [Login], [Password], [Email], [Phone], [RoleID], [CreatedAt], [IsBlocked]) VALUES (12, N'Тест', N'user', N'user', N'user@mail.ru', N'7999191929', 1, CAST(N'2026-04-02T22:57:06.893' AS DateTime), 0)
+GO
 INSERT [dbo].[Users] ([UserID], [FullName], [Login], [Password], [Email], [Phone], [RoleID], [CreatedAt], [IsBlocked]) VALUES (13, N'чурбан', N'123', N'123', N'123@mail.ru', N'123123123123', 2, CAST(N'2026-04-09T13:54:22.700' AS DateTime), 0)
+GO
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
-/****** Object:  Index [IX_Carts]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Index [IX_Carts]    Script Date: 10.04.2026 13:51:49 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Carts] ON [dbo].[Carts]
 (
 	[UserID] ASC
@@ -400,7 +455,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [IX_Carts] ON [dbo].[Carts]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Users]    Script Date: 09.04.2026 15:52:54 ******/
+/****** Object:  Index [IX_Users]    Script Date: 10.04.2026 13:51:49 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Users] ON [dbo].[Users]
 (
 	[Login] ASC
