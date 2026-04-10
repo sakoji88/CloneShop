@@ -49,6 +49,11 @@ namespace CloneShop.Pages
 
             var userObj = AppConnect.model01.Users.FirstOrDefault(x =>
                 x.Login == login && x.Password == password);
+            if (userObj.IsBlocked)
+            {
+                MessageBox.Show("Ваш аккаунт заблокирован");
+                return;
+            }
 
             if (userObj == null)
             {

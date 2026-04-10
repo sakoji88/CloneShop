@@ -66,5 +66,10 @@ namespace CloneShop.Pages
                 LoadProducts();
             }
         }
+
+        private void btnUsers_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frmMain.Navigate(new AdminUsersPage());
+        }
     }
 }

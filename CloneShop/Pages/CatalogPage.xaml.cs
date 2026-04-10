@@ -60,7 +60,35 @@ namespace CloneShop.Pages
         {
             LoadProducts();
         }
+        private string GetImagePath(string imageName)
+        {
+            if (string.IsNullOrWhiteSpace(imageName))
+                return null;
 
+            string imagePath = System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Images",
+                imageName);
+
+            if (System.IO.File.Exists(imagePath))
+                return imagePath;
+
+            return null;
+        }
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button == null)
+                return;
+
+            Products selectedProduct = button.Tag as Products;
+
+            if (selectedProduct == null)
+                return;
+
+            AppFrame.frmMain.Navigate(new ProductDetailsPage(selectedProduct));
+        }
         private void LoadProducts()
         {
             var products = AppConnect.model01.Products.ToList();
@@ -81,6 +109,7 @@ namespace CloneShop.Pages
                     (x.Description != null && x.Description.ToLower().Contains(txtSearch.Text.ToLower()))
                 ).ToList();
             }
+
             if (cmbSort.SelectedIndex == 1)
             {
                 products = products.OrderBy(x => x.Price).ToList();
@@ -90,7 +119,17 @@ namespace CloneShop.Pages
                 products = products.OrderByDescending(x => x.Price).ToList();
             }
 
-            lvProducts.ItemsSource = products;
+            var displayItems = products.Select(x => new ProductDisplayItem
+            {
+                SourceProduct = x,
+                ProductName = x.ProductName,
+                Price = x.Price,
+                QuantityInStock = x.QuantityInStock,
+                Description = x.Description,
+                ImagePath = GetImagePath(x.MainImage)
+            }).ToList();
+
+            lvProducts.ItemsSource = displayItems;
         }
 
 
@@ -184,6 +223,20 @@ namespace CloneShop.Pages
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.Navigate(new ProfilePage());
+        }
+
+        private void btnQr_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frmMain.Navigate(new QrPage());
+        }
+        public class ProductDisplayItem
+        {
+            public Products SourceProduct { get; set; }
+            public string ProductName { get; set; }
+            public decimal Price { get; set; }
+            public int QuantityInStock { get; set; }
+            public string Description { get; set; }
+            public string ImagePath { get; set; }
         }
     }
 

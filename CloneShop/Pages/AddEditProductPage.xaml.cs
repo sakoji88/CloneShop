@@ -1,7 +1,15 @@
-﻿using System.Linq;
+﻿using CloneShop.ApplicationData;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Validation;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using CloneShop.ApplicationData;
+using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 namespace CloneShop.Pages
 {
@@ -33,6 +41,28 @@ namespace CloneShop.Pages
                 cmbCategory.SelectedValue = currentProduct.CategoryID;
                 cmbBrand.SelectedValue = currentProduct.BrandID;
                 cmbStatus.SelectedValue = currentProduct.StatusID;
+                txtImage.Text = currentProduct.MainImage;
+                LoadPreviewImage(currentProduct.MainImage);
+                LoadAdditionalImages();
+            }
+        }
+
+        private void LoadPreviewImage(string imageName)
+        {
+            if (string.IsNullOrWhiteSpace(imageName))
+                return;
+
+            string imagePath = Path.Combine(Directory.GetCurrentDirectory(), "Images", imageName);
+
+            if (File.Exists(imagePath))
+            {
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(imagePath);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                imgPreview.Source = bitmap;
             }
         }
 
@@ -92,6 +122,12 @@ namespace CloneShop.Pages
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(txtImage.Text))
+            {
+                MessageBox.Show("Выберите изображение товара");
+                return;
+            }
+
             currentProduct.ProductName = txtName.Text;
             currentProduct.Description = txtDescription.Text;
             currentProduct.Price = price;
@@ -99,21 +135,146 @@ namespace CloneShop.Pages
             currentProduct.CategoryID = (int)cmbCategory.SelectedValue;
             currentProduct.BrandID = (int)cmbBrand.SelectedValue;
             currentProduct.StatusID = (int)cmbStatus.SelectedValue;
+            currentProduct.MainImage = txtImage.Text;
 
-            if (currentProduct.ProductID == 0)
+            try
             {
-                AppConnect.model01.Products.Add(currentProduct);
+                if (currentProduct.ProductID == 0)
+                {
+                    AppConnect.model01.Products.Add(currentProduct);
+                }
+
+                AppConnect.model01.SaveChanges();
+                var oldImages = AppConnect.model01.ProductImages
+    .Where(x => x.ProductID == currentProduct.ProductID)
+    .ToList();
+
+                foreach (var oldImage in oldImages)
+                {
+                    AppConnect.model01.ProductImages.Remove(oldImage);
+                }
+
+                foreach (var imageName in additionalImages)
+                {
+                    ProductImages newImage = new ProductImages();
+                    newImage.ProductID = currentProduct.ProductID;
+                    newImage.ImagePath = imageName;
+
+                    AppConnect.model01.ProductImages.Add(newImage);
+                }
+
+                AppConnect.model01.SaveChanges();
+                MessageBox.Show("Товар сохранен");
+                AppFrame.frmMain.GoBack();
             }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
 
-            AppConnect.model01.SaveChanges();
+                foreach (var entityErrors in ex.EntityValidationErrors)
+                {
+                    sb.AppendLine("Сущность: " + entityErrors.Entry.Entity.GetType().Name);
 
-            MessageBox.Show("Товар сохранен");
-            AppFrame.frmMain.GoBack();
+                    foreach (var validationError in entityErrors.ValidationErrors)
+                    {
+                        sb.AppendLine("Поле: " + validationError.PropertyName);
+                        sb.AppendLine("Ошибка: " + validationError.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                MessageBox.Show(sb.ToString(), "Ошибка валидации");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка");
+            }
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.GoBack();
         }
+        private void btnChooseImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (dialog.ShowDialog() == true)
+            {
+                string imagesFolder = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+
+                if (!Directory.Exists(imagesFolder))
+                {
+                    Directory.CreateDirectory(imagesFolder);
+                }
+
+                string fileName = Path.GetFileName(dialog.FileName);
+                string destinationPath = Path.Combine(imagesFolder, fileName);
+
+                File.Copy(dialog.FileName, destinationPath, true);
+
+                txtImage.Text = fileName;
+
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(destinationPath);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                imgPreview.Source = bitmap;
+            }
+        }
+        private void LoadAdditionalImages()
+        {
+            additionalImages = AppConnect.model01.ProductImages
+                .Where(x => x.ProductID == currentProduct.ProductID)
+                .Select(x => x.ImagePath)
+                .ToList();
+
+            lbAdditionalImages.ItemsSource = null;
+            lbAdditionalImages.ItemsSource = additionalImages;
+        }
+        private void btnAddAdditionalImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Изображения|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (dialog.ShowDialog() == true)
+            {
+                string imagesFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+
+                if (!Directory.Exists(imagesFolder))
+                {
+                    Directory.CreateDirectory(imagesFolder);
+                }
+
+                string fileName = Path.GetFileName(dialog.FileName);
+                string destinationPath = Path.Combine(imagesFolder, fileName);
+
+                File.Copy(dialog.FileName, destinationPath, true);
+
+                additionalImages.Add(fileName);
+
+                lbAdditionalImages.ItemsSource = null;
+                lbAdditionalImages.ItemsSource = additionalImages;
+            }
+        }
+        private void btnRemoveAdditionalImage_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedImage = lbAdditionalImages.SelectedItem as string;
+
+            if (string.IsNullOrWhiteSpace(selectedImage))
+            {
+                MessageBox.Show("Выберите изображение");
+                return;
+            }
+
+            additionalImages.Remove(selectedImage);
+
+            lbAdditionalImages.ItemsSource = null;
+            lbAdditionalImages.ItemsSource = additionalImages;
+        }
+        private List<string> additionalImages = new List<string>();
     }
 }
