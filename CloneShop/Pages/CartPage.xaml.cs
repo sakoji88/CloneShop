@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using CloneShop.ApplicationData;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using CloneShop.ApplicationData;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +62,10 @@ namespace CloneShop.Pages
                     TotalPrice = item.Quantity * item.PriceAtMoment,
                     SourceCartItem = item
                 });
+                if (displayItems.Count == 0)
+                {
+                    tbTotal.Text = "Итог: 0 ₽";
+                }
             }
 
             lvCartItems.ItemsSource = displayItems;
@@ -107,6 +113,24 @@ namespace CloneShop.Pages
                 .Where(x => x.CartID == userCart.CartID)
                 .ToList();
 
+            foreach (var item in cartItems)
+            {
+                Products product = AppConnect.model01.Products
+                    .FirstOrDefault(x => x.ProductID == item.ProductID);
+
+                if (product == null)
+                {
+                    MessageBox.Show("Один из товаров не найден");
+                    return;
+                }
+
+                if (product.QuantityInStock < item.Quantity)
+                {
+                    MessageBox.Show("Недостаточно товара на складе: " + product.ProductName);
+                    return;
+                }
+            }
+
             if (cartItems.Count == 0)
             {
                 MessageBox.Show("Корзина пуста");
@@ -133,6 +157,19 @@ namespace CloneShop.Pages
                 newOrderItem.PriceAtMoment = item.PriceAtMoment;
 
                 AppConnect.model01.OrderItems.Add(newOrderItem);
+
+                Products product = AppConnect.model01.Products
+                    .FirstOrDefault(x => x.ProductID == item.ProductID);
+
+                if (product != null)
+                {
+                    product.QuantityInStock -= item.Quantity;
+
+                    if (product.QuantityInStock < 0)
+                    {
+                        product.QuantityInStock = 0;
+                    }
+                }
             }
             string pdfPath = GenerateReceiptPdf(newOrder, cartItems);
 
@@ -150,7 +187,15 @@ namespace CloneShop.Pages
             AppConnect.model01.SaveChanges();
 
             MessageBox.Show("Заказ успешно оформлен");
+            if (File.Exists(pdfPath))
+            {
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = pdfPath;
+                psi.UseShellExecute = true;
+                Process.Start(psi);
+            }
             LoadCartItems();
+
         }
         private string GenerateReceiptPdf(Orders order, List<CartItems> cartItems)
         {
@@ -208,22 +253,174 @@ namespace CloneShop.Pages
 
             document.Add(new iTextSharp.text.Paragraph(" ", normalFont));
             document.Add(new iTextSharp.text.Paragraph("Итоговая сумма: " + order.TotalAmount + " ₽", boldFont));
+            document.Add(new iTextSharp.text.Paragraph(" ", normalFont));
+            document.Add(new iTextSharp.text.Paragraph("QR-код чека:", boldFont));
+            document.Add(new iTextSharp.text.Paragraph(" ", normalFont));
+
+            using (System.Drawing.Bitmap qrBitmap = GenerateReceiptQrBitmap(order))
+            {
+                using (MemoryStream qrStream = new MemoryStream())
+                {
+                    qrBitmap.Save(qrStream, ImageFormat.Png);
+                    iTextSharp.text.Image qrImage = iTextSharp.text.Image.GetInstance(qrStream.ToArray());
+                    qrImage.ScaleToFit(150f, 150f);
+                    qrImage.Alignment = iTextSharp.text.Image.ALIGN_LEFT;
+
+                    document.Add(qrImage);
+                }
+            }
 
             document.Close();
 
             return fullPath;
         }
-    }
+        private System.Drawing.Bitmap GenerateReceiptQrBitmap(Orders order)
+        {
+            string qrText =
+                "Чек магазина клонов\n" +
+                "Заказ № " + order.OrderID + "\n" +
+                "Дата: " + order.OrderDate.ToString("dd.MM.yyyy HH:mm") + "\n" +
+                "Покупатель: " + AppConnect.CurrentUser.FullName + "\n" +
+                "Сумма: " + order.TotalAmount + " ₽";
 
+            QRCoder.QRCodeGenerator qrGenerator = new QRCoder.QRCodeGenerator();
+            QRCoder.QRCodeData qrCodeData = qrGenerator.CreateQrCode(
+                qrText,
+                QRCoder.QRCodeGenerator.ECCLevel.Q);
+
+            QRCoder.QRCode qrCode = new QRCoder.QRCode(qrCodeData);
+
+            return qrCode.GetGraphic(10);
+        }
+        private string GetImagePath(string imageName)
+        {
+            if (string.IsNullOrWhiteSpace(imageName))
+                return null;
+
+            string imagePath = System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Images",
+                imageName);
+
+            if (File.Exists(imagePath))
+                return imagePath;
+
+            return null;
+        }
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button == null)
+                return;
+
+            CartDisplayItem selectedItem = button.Tag as CartDisplayItem;
+
+            if (selectedItem == null)
+                return;
+
+            var cartItem = AppConnect.model01.CartItems
+                .FirstOrDefault(x => x.CartItemID == selectedItem.CartItemID);
+
+            if (cartItem == null)
+                return;
+
+            cartItem.Quantity -= 1;
+
+            if (cartItem.Quantity <= 0)
+            {
+                AppConnect.model01.CartItems.Remove(cartItem);
+            }
+
+            AppConnect.model01.SaveChanges();
+            LoadCartItems();
+        }
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button == null)
+                return;
+
+            CartDisplayItem selectedItem = button.Tag as CartDisplayItem;
+
+            if (selectedItem == null)
+                return;
+
+            var cartItem = AppConnect.model01.CartItems
+                .FirstOrDefault(x => x.CartItemID == selectedItem.CartItemID);
+
+            if (cartItem == null)
+                return;
+
+            Products product = AppConnect.model01.Products
+                .FirstOrDefault(x => x.ProductID == cartItem.ProductID);
+
+            if (product == null)
+                return;
+
+            if (cartItem.Quantity + 1 > product.QuantityInStock)
+            {
+                MessageBox.Show("Нельзя добавить больше товара, чем есть на складе");
+                return;
+            }
+
+            cartItem.Quantity += 1;
+
+            AppConnect.model01.SaveChanges();
+            LoadCartItems();
+        }
+        private void btnClearCart_Click(object sender, RoutedEventArgs e)
+        {
+            var userCart = AppConnect.model01.Carts
+                .FirstOrDefault(x => x.UserID == AppConnect.CurrentUser.UserID);
+
+            if (userCart == null)
+            {
+                MessageBox.Show("Корзина не найдена");
+                return;
+            }
+
+            var cartItems = AppConnect.model01.CartItems
+                .Where(x => x.CartID == userCart.CartID)
+                .ToList();
+
+            if (cartItems.Count == 0)
+            {
+                MessageBox.Show("Корзина уже пуста");
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show(
+                "Очистить корзину полностью?",
+                "Подтверждение",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            foreach (var item in cartItems)
+            {
+                AppConnect.model01.CartItems.Remove(item);
+            }
+
+            AppConnect.model01.SaveChanges();
+            LoadCartItems();
+
+            MessageBox.Show("Корзина очищена");
+        }
+    }
 
         public class CartDisplayItem
-    {
-        public int CartItemID { get; set; }
-        public int ProductID { get; set; }
-        public string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public decimal PriceAtMoment { get; set; }
-        public decimal TotalPrice { get; set; }
-        public CartItems SourceCartItem { get; set; }
+        {
+            public int CartItemID { get; set; }
+            public int ProductID { get; set; }
+            public string ProductName { get; set; }
+            public int Quantity { get; set; }
+            public decimal PriceAtMoment { get; set; }
+            public decimal TotalPrice { get; set; }
+            public string ImagePath { get; set; }
+            public CartItems SourceCartItem { get; set; }
+        }
     }
-}
