@@ -1,31 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using CloneShop.ApplicationData;
-using CloneShop.Pages;
 
 namespace CloneShop.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для AutorizationPage.xaml
-    /// </summary>
-    public partial class AutorizationPage : Page
+    public partial class AuthorizationPage : Page
     {
-        public AutorizationPage()
+        public AuthorizationPage()
         {
             InitializeComponent();
-
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -49,11 +33,6 @@ namespace CloneShop.Pages
 
             var userObj = AppConnect.model01.Users.FirstOrDefault(x =>
                 x.Login == login && x.Password == password);
-            if (userObj.IsBlocked)
-            {
-                MessageBox.Show("Ваш аккаунт заблокирован");
-                return;
-            }
 
             if (userObj == null)
             {
@@ -63,8 +42,14 @@ namespace CloneShop.Pages
                 return;
             }
 
-            MessageBox.Show("Добро пожаловать, " + userObj.FullName);
+            if (userObj.IsBlocked)
+            {
+                MessageBox.Show("Ваш аккаунт заблокирован");
+                return;
+            }
+
             AppConnect.CurrentUser = userObj;
+            MessageBox.Show("Добро пожаловать, " + userObj.FullName);
             AppFrame.frmMain.Navigate(new CatalogPage());
         }
 

@@ -3,66 +3,74 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="QrPage">
 
-    <Grid Background="#F5F5F5">
+    <Grid Background="{StaticResource PageBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Шапка -->
-        <Grid Grid.Row="0" Background="#2D2D30">
+        <Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0"
-                       Text="Telegram / QR"
-                       FontSize="26"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       Margin="20,0,0,0"/>
+                       Text="Поддержка"
+                       Style="{StaticResource PageHeaderTextStyle}"/>
 
             <Button Grid.Column="1"
                     x:Name="btnBack"
                     Content="Назад"
                     Width="90"
-                    Height="35"
+                    Style="{StaticResource MainButtonStyle}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Click="btnBack_Click"/>
         </Grid>
 
         <!-- Контент -->
-        <StackPanel Grid.Row="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Border Grid.Row="1"
+                Style="{StaticResource CardBorderStyle}"
+                Width="420"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Padding="25">
+            <StackPanel HorizontalAlignment="Center">
 
-            <TextBlock Text="Отсканируйте QR-код или откройте ссылку"
-                       FontSize="18"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+                <TextBlock Text="Отсканируйте QR-код или откройте ссылку"
+                           FontSize="17"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
 
-            <Image x:Name="imgQr"
-                   Width="250"
-                   Height="250"
-                   Stretch="Uniform"
-                   Margin="0,0,0,20"/>
+                <Border BorderBrush="#CCCCCC"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="10"
+                        Margin="0,0,0,20">
+                    <Image x:Name="imgQr"
+                           Width="250"
+                           Height="250"
+                           Stretch="Uniform"/>
+                </Border>
 
-            <TextBlock x:Name="tbTelegramLink"
-                       Text="Ссылка"
-                       FontSize="16"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,20"/>
+                <TextBlock x:Name="tbTelegramLink"
+                           Text="Ссылка"
+                           FontSize="16"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"
+                           Style="{StaticResource MutedTextStyle}"/>
 
-            <Button x:Name="btnOpenTelegram"
-                    Content="Открыть Telegram"
-                    Width="170"
-                    Height="40"
-                    Click="btnOpenTelegram_Click"/>
-        </StackPanel>
+                <Button x:Name="btnOpenTelegram"
+                        Content="Открыть ссылку"
+                        Width="180"
+                        Height="40"
+                        Style="{StaticResource MainButtonStyle}"
+                        Click="btnOpenTelegram_Click" Cursor="Hand"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

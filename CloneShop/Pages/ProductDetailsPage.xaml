@@ -3,14 +3,14 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="ProductDetailsPage">
 
-    <Grid Background="#F5F5F5">
+    <Grid Background="{StaticResource PageBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Шапка -->
-        <Grid Grid.Row="0" Background="#2D2D30">
+        <Grid Grid.Row="0" Background="{StaticResource HeaderBackgroundBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="120"/>
@@ -18,16 +18,12 @@
 
             <TextBlock Grid.Column="0"
                        Text="Карточка товара"
-                       FontSize="26"
-                       FontWeight="Bold"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       Margin="20,0,0,0"/>
+                       Style="{StaticResource PageHeaderTextStyle}"/>
 
             <Button Grid.Column="1"
                     Content="Назад"
                     Width="90"
-                    Height="35"
+                    Style="{StaticResource MainButtonStyle}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Click="btnBack_Click"/>
@@ -36,98 +32,113 @@
         <!-- Контент -->
         <Grid Grid.Row="1" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="320"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Левая часть -->
-            <StackPanel Grid.Column="0">
-                <Border BorderBrush="Black"
-                        BorderThickness="1"
-                        Background="White"
-                        Padding="10">
-                    <Image x:Name="imgMain"
-                           Width="250"
-                           Height="250"
-                           Stretch="Uniform"/>
-                </Border>
+            <Border Grid.Column="0"
+                    Style="{StaticResource CardBorderStyle}">
+                <StackPanel>
+                    <Border BorderBrush="#CCCCCC"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="10"
+                            Margin="0,0,0,15">
+                        <Image x:Name="imgMain"
+                               Width="260"
+                               Height="260"
+                               Stretch="Uniform"/>
+                    </Border>
 
-                <TextBlock Text="Дополнительные изображения"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Margin="0,15,0,10"/>
+                    <TextBlock Text="Изображения товара"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-              VerticalScrollBarVisibility="Disabled"
-              Height="120">
-                    <ItemsControl x:Name="icImages">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Disabled"
+                                  Height="120">
+                        <ItemsControl x:Name="icImages">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Tag="{Binding}"
-                        Margin="3"
-                        Padding="0"
-                        BorderThickness="1" Click="btnThumbnail_Click">
-                                    <Image Source="{Binding}"
-                           Width="90"
-                           Height="90"
-                           Stretch="UniformToFill"/>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Tag="{Binding}"
+                                            Click="btnThumbnail_Click"
+                                            Margin="3"
+                                            Padding="0"
+                                            BorderThickness="1">
+                                        <Image Source="{Binding}"
+                                               Width="90"
+                                               Height="90"
+                                               Stretch="UniformToFill"/>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                 </StackPanel>
+            </Border>
 
-                <!-- Правая часть -->
-            <StackPanel Grid.Column="1" Margin="20,0,0,0">
-                <TextBlock x:Name="tbName"
-                           FontSize="24"
-                           FontWeight="Bold"/>
+            <!-- Правая часть -->
+            <Border Grid.Column="1"
+                    Style="{StaticResource CardBorderStyle}"
+                    Margin="10,0,0,0">
+                <StackPanel>
+                    <TextBlock x:Name="tbName"
+                               FontSize="26"
+                               FontWeight="Bold"/>
 
-                <TextBlock x:Name="tbPrice"
-                           FontSize="18"
-                           Margin="0,15,0,0"/>
+                    <TextBlock x:Name="tbPrice"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Margin="0,15,0,0"/>
 
-                <TextBlock x:Name="tbCategory"
-                           FontSize="16"
-                           Margin="0,10,0,0"/>
+                    <TextBlock x:Name="tbCategory"
+                               FontSize="16"
+                               Margin="0,10,0,0"
+                               Style="{StaticResource MutedTextStyle}"/>
 
-                <TextBlock x:Name="tbBrand"
-                           FontSize="16"
-                           Margin="0,10,0,0"/>
+                    <TextBlock x:Name="tbBrand"
+                               FontSize="16"
+                               Margin="0,10,0,0"
+                               Style="{StaticResource MutedTextStyle}"/>
 
-                <TextBlock x:Name="tbStatus"
-                           FontSize="16"
-                           Margin="0,10,0,0"/>
+                    <TextBlock x:Name="tbStatus"
+                               FontSize="16"
+                               Margin="0,10,0,0"
+                               Style="{StaticResource MutedTextStyle}"/>
 
-                <TextBlock x:Name="tbQuantity"
-                           FontSize="16"
-                           Margin="0,10,0,0"/>
+                    <TextBlock x:Name="tbQuantity"
+                               FontSize="16"
+                               Margin="0,10,0,0"
+                               Style="{StaticResource MutedTextStyle}"/>
 
-                <TextBlock Text="Описание:"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Margin="0,20,0,5"/>
+                    <TextBlock Text="Описание:"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,20,0,8"/>
 
-                <TextBlock x:Name="tbDescription"
-                           TextWrapping="Wrap"
-                           FontSize="16"
-                           MaxHeight="300"/>
+                    <TextBlock x:Name="tbDescription"
+                               TextWrapping="Wrap"
+                               FontSize="16"
+                               Style="{StaticResource MutedTextStyle}"
+                               MaxHeight="260"/>
 
-                <Button x:Name="btnAddToCart"
-                        Content="В корзину"
-                        Width="150"
-                        Height="35"
-                        Margin="0,25,0,0"
-                        HorizontalAlignment="Left"
-                        Click="btnAddToCart_Click"/>
-            </StackPanel>
+                    <Button x:Name="btnAddToCart"
+                            Content="В корзину"
+                            Width="160"
+                            Height="40"
+                            Margin="0,25,0,0"
+                            Style="{StaticResource MainButtonStyle}"
+                            Click="btnAddToCart_Click"/>
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Page>

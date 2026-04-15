@@ -38,7 +38,7 @@ namespace CloneShop
 
         private void LoadAuthorizationPage()
         {
-            FrmMain.Navigate(new AutorizationPage());
+            FrmMain.Navigate(new AuthorizationPage());
         }
     }
 }

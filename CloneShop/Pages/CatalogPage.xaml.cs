@@ -28,17 +28,8 @@ namespace CloneShop.Pages
             {
                 tbWelcome.Text = "Добро пожаловать, " + AppConnect.CurrentUser.FullName;
             }
-            if (AppConnect.CurrentUser.RoleID == 1)
-            {
-                tbRole.Text = "Роль: Администратор";
-                btnAdmin.Visibility = System.Windows.Visibility.Visible;
-            }
-            else
-            {
-                tbRole.Text = "Роль: Пользователь";
-                btnAdmin.Visibility = System.Windows.Visibility.Collapsed;
-            }
             
+                       
             LoadCategories();
             LoadSort();
             LoadProducts();
@@ -47,7 +38,7 @@ namespace CloneShop.Pages
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             AppConnect.CurrentUser = null;
-            AppFrame.frmMain.Navigate(new AutorizationPage());
+            AppFrame.frmMain.Navigate(new AuthorizationPage());
 
         }
 
@@ -215,11 +206,7 @@ namespace CloneShop.Pages
             MessageBox.Show("Товар добавлен в корзину");
         }
 
-        private void BtnCart_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frmMain.Navigate(new CartPage());
-        }
-
+        
         private void btnProfile_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.Navigate(new ProfilePage());
@@ -237,6 +224,13 @@ namespace CloneShop.Pages
             public int QuantityInStock { get; set; }
             public string Description { get; set; }
             public string ImagePath { get; set; }
+        }
+
+       
+
+        private void btnCart_Click_1(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frmMain.Navigate(new CartPage());
         }
     }
 
