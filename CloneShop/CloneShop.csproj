@@ -271,6 +271,7 @@
       <DependentUpon>CloneShopDBEntities.edmx</DependentUpon>
       <LastGenOutput>CloneShopDBEntities.cs</LastGenOutput>
     </Content>
+    <Resource Include="image %281%29.ico" />
     <Resource Include="Pages\free-icon-help-desk-4961736.png" />
     <Resource Include="Pages\free-icon-support-services-6515925.png" />
     <Resource Include="Pages\free-icon-user-847969.png" />

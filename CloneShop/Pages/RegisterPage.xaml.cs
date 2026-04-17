@@ -39,7 +39,10 @@ namespace CloneShop.Pages
             {
                 MessageBox.Show("Введите имя");
                 txtName.Focus();
+                
+               
                 return;
+               
             }
 
             if (string.IsNullOrWhiteSpace(login))

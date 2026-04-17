@@ -1,7 +1,7 @@
 ﻿<Page x:Class="CloneShop.Pages.CatalogPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="CatalogPage">
+      Title="CatalogPage" Loaded="Page_Loaded">
 
     <Grid Background="{StaticResource PageBackgroundBrush}">
         <Grid.RowDefinitions>
@@ -72,7 +72,7 @@
                             Style="{StaticResource MainButtonStyle}"
                             Width="160"
                             Margin="0,15,0,0"
-                            Visibility="Collapsed"
+                            HorizontalAlignment="Left"
                             Click="btnAdmin_Click"/>
                 </StackPanel>
 

@@ -8,8 +8,14 @@
         Title="Магазин Клонов" Height="500" Width="900"
         MinWidth="900"
         MinHeight="500"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Icon="/image (1).ico">
+
     <Grid>
-        <Frame x:Name="FrmMain" NavigationUIVisibility="Hidden"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="407*"/>
+        </Grid.ColumnDefinitions>
+        <Frame x:Name="FrmMain" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
     </Grid>
+
 </Window>

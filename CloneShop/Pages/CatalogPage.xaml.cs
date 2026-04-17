@@ -1,6 +1,7 @@
 ﻿using CloneShop.ApplicationData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,22 @@ namespace CloneShop.Pages
             {
                 tbWelcome.Text = "Добро пожаловать, " + AppConnect.CurrentUser.FullName;
             }
-            
-                       
+            if (AppConnect.CurrentUser.RoleID == 1)
+            {
+                
+                btnAdmin.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                
+                btnAdmin.Visibility = System.Windows.Visibility.Collapsed;
+            }
+
+
             LoadCategories();
             LoadSort();
             LoadProducts();
+            
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -110,7 +122,7 @@ namespace CloneShop.Pages
                 products = products.OrderByDescending(x => x.Price).ToList();
             }
 
-            var displayItems = products.Select(x => new ProductDisplayItem
+            var displayItems = products.Select( x => new ProductDisplayItem
             {
                 SourceProduct = x,
                 ProductName = x.ProductName,
@@ -231,6 +243,11 @@ namespace CloneShop.Pages
         private void btnCart_Click_1(object sender, RoutedEventArgs e)
         {
             AppFrame.frmMain.Navigate(new CartPage());
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

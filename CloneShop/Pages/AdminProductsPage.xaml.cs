@@ -71,5 +71,11 @@ namespace CloneShop.Pages
         {
             AppFrame.frmMain.Navigate(new AdminUsersPage());
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadProducts();
+        }
+    
     }
 }
