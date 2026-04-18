@@ -28,21 +28,25 @@ namespace CloneShop.Pages
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            string name = txtName.Text;
-            string login = txtLogin.Text;
-            string password = txtPassword.Password;
-            string passwordRepeat = txtPasswordRepeat.Password;
-            string email = txtEmail.Text;
-            string phone = txtPhone.Text;
+            string name = txtName.Text.Trim();
+            string login = txtLogin.Text.Trim();
+            string password = txtPassword.Password.Trim();
+            string passwordRepeat = txtPasswordRepeat.Password.Trim();
+            string email = txtEmail.Text.Trim();
+            string phone = txtPhone.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show("Введите имя");
                 txtName.Focus();
-                
-               
                 return;
-               
+            }
+
+            if (name.Length < 2 || name.Length > 100)
+            {
+                MessageBox.Show("Имя должно быть от 2 до 100 символов");
+                txtName.Focus();
+                return;
             }
 
             if (string.IsNullOrWhiteSpace(login))
@@ -52,9 +56,30 @@ namespace CloneShop.Pages
                 return;
             }
 
+            if (login.Length < 3 || login.Length > 50)
+            {
+                MessageBox.Show("Логин должен быть от 3 до 50 символов");
+                txtLogin.Focus();
+                return;
+            }
+
+            if (login.Contains(" "))
+            {
+                MessageBox.Show("Логин не должен содержать пробелы");
+                txtLogin.Focus();
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Введите пароль");
+                txtPassword.Focus();
+                return;
+            }
+
+            if (password.Length < 4 || password.Length > 50)
+            {
+                MessageBox.Show("Пароль должен быть от 4 до 50 символов");
                 txtPassword.Focus();
                 return;
             }
@@ -74,6 +99,42 @@ namespace CloneShop.Pages
                 txtPassword.Focus();
                 return;
             }
+
+            if (email.Length > 100)
+            {
+                MessageBox.Show("Email слишком длинный");
+                txtEmail.Focus();
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(email) &&
+                (!email.Contains("@") || !email.Contains(".")))
+            {
+                MessageBox.Show("Email введен некорректно");
+                txtEmail.Focus();
+                return;
+            }
+
+            if (phone.Length > 20)
+            {
+                MessageBox.Show("Телефон слишком длинный");
+                txtPhone.Focus();
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(phone))
+            {
+                foreach (char ch in phone)
+                {
+                    if (!char.IsDigit(ch) && ch != '+' && ch != '-' && ch != '(' && ch != ')' && ch != ' ')
+                    {
+                        MessageBox.Show("Телефон содержит недопустимые символы");
+                        txtPhone.Focus();
+                        return;
+                    }
+                }
+            }
+
             var existingUser = AppConnect.model01.Users.FirstOrDefault(x => x.Login == login);
 
             if (existingUser != null)
@@ -82,39 +143,27 @@ namespace CloneShop.Pages
                 txtLogin.Focus();
                 return;
             }
-            var existingEmail = AppConnect.model01.Users.FirstOrDefault(x => x.Email == email);
 
-            if (existingEmail != null)
-            {
-                MessageBox.Show("Почта уже занята");
-                txtEmail.Focus();
-                return;
-            }
-            var existingPhone = AppConnect.model01.Users.FirstOrDefault(x => x.Phone == phone);
-
-            if (existingPhone != null)
-            {
-                MessageBox.Show("Пользователь с таким номером телефона уже зарегистрирован");
-                txtPhone.Focus();
-                return;
-            }
             Users newUser = new Users();
             newUser.FullName = name;
             newUser.Login = login;
             newUser.Password = password;
-            newUser.Email = email;
-            newUser.Phone = phone;
+            newUser.Email = string.IsNullOrWhiteSpace(email) ? null : email;
+            newUser.Phone = string.IsNullOrWhiteSpace(phone) ? null : phone;
             newUser.RoleID = 2;
-            newUser.CreatedAt = DateTime.Now;
             newUser.IsBlocked = false;
+            newUser.CreatedAt = System.DateTime.Now;
+
             AppConnect.model01.Users.Add(newUser);
             AppConnect.model01.SaveChanges();
+
             Carts newCart = new Carts();
             newCart.UserID = newUser.UserID;
-            newCart.CreatedAt = DateTime.Now;
+            newCart.CreatedAt = System.DateTime.Now;
 
             AppConnect.model01.Carts.Add(newCart);
             AppConnect.model01.SaveChanges();
+
             MessageBox.Show("Регистрация прошла успешно");
             AppFrame.frmMain.GoBack();
         }

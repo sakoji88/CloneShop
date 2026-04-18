@@ -24,27 +24,33 @@
 
                 <TextBlock Text="Имя"/>
                 <TextBox x:Name="txtName"
-                         Style="{StaticResource MainTextBoxStyle}"/>
+                         Style="{StaticResource MainTextBoxStyle}"
+                         MaxLength="100"/>
 
                 <TextBlock Text="Логин"/>
                 <TextBox x:Name="txtLogin"
-                         Style="{StaticResource MainTextBoxStyle}"/>
+                         Style="{StaticResource MainTextBoxStyle}"
+                         MaxLength="50"/>
 
                 <TextBlock Text="Пароль"/>
                 <PasswordBox x:Name="txtPassword"
-                             Style="{StaticResource MainPasswordBoxStyle}"/>
+                             Style="{StaticResource MainPasswordBoxStyle}"
+                             MaxLength="50"/>
 
                 <TextBlock Text="Повтор пароля"/>
                 <PasswordBox x:Name="txtPasswordRepeat"
-                             Style="{StaticResource MainPasswordBoxStyle}"/>
+                             Style="{StaticResource MainPasswordBoxStyle}"
+                             MaxLength="50"/>
 
                 <TextBlock Text="Email"/>
                 <TextBox x:Name="txtEmail"
-                         Style="{StaticResource MainTextBoxStyle}"/>
+                         Style="{StaticResource MainTextBoxStyle}"
+                         MaxLength="100"/>
 
                 <TextBlock Text="Телефон"/>
                 <TextBox x:Name="txtPhone"
-                         Style="{StaticResource MainTextBoxStyle}"/>
+                         Style="{StaticResource MainTextBoxStyle}"
+                         MaxLength="20"/>
 
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center"

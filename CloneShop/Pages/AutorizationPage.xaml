@@ -25,12 +25,14 @@
                 <TextBlock Text="Логин"
                            Margin="0,0,0,5"/>
                 <TextBox x:Name="txtLogin"
-                         Style="{StaticResource MainTextBoxStyle}"/>
+                         Style="{StaticResource MainTextBoxStyle}"
+                         MaxLength="50"/>
 
                 <TextBlock Text="Пароль"
                            Margin="0,0,0,5"/>
                 <PasswordBox x:Name="txtPassword"
-                             Style="{StaticResource MainPasswordBoxStyle}"/>
+                             Style="{StaticResource MainPasswordBoxStyle}"
+                             MaxLength="50"/>
 
                 <Button x:Name="btnLogin"
                         Content="Войти"

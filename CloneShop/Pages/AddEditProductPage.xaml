@@ -48,22 +48,26 @@
 
                         <TextBlock Text="Название товара"/>
                         <TextBox x:Name="txtName"
-                                 Style="{StaticResource MainTextBoxStyle}"/>
+                                 Style="{StaticResource MainTextBoxStyle}"
+                                 MaxLength="150"/>
 
                         <TextBlock Text="Описание"/>
                         <TextBox x:Name="txtDescription"
                                  Style="{StaticResource MainTextBoxStyle}"
                                  Height="90"
                                  TextWrapping="Wrap"
-                                 AcceptsReturn="True"/>
+                                 AcceptsReturn="True"
+                                 MaxLength="1000"/>
 
                         <TextBlock Text="Цена"/>
                         <TextBox x:Name="txtPrice"
-                                 Style="{StaticResource MainTextBoxStyle}"/>
+                                 Style="{StaticResource MainTextBoxStyle}"
+                                 MaxLength="10"/>
 
                         <TextBlock Text="Количество"/>
                         <TextBox x:Name="txtQuantity"
-                                 Style="{StaticResource MainTextBoxStyle}"/>
+                                 Style="{StaticResource MainTextBoxStyle}"
+                                 MaxLength="6"/>
                     </StackPanel>
                 </Border>
 
@@ -130,7 +134,8 @@
                         <TextBlock Text="Изображение"/>
                         <TextBox x:Name="txtImage"
                                  Style="{StaticResource MainTextBoxStyle}"
-                                 IsReadOnly="True"/>
+                                 IsReadOnly="True"
+                                 MaxLength="255"/>
 
                         <Button x:Name="btnChooseImage"
                                 Content="Выбрать изображение"

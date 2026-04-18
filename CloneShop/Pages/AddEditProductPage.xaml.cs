@@ -83,23 +83,85 @@ namespace CloneShop.Pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            string productName = txtName.Text.Trim();
+            string description = txtDescription.Text.Trim();
+            string priceText = txtPrice.Text.Trim();
+            string quantityText = txtQuantity.Text.Trim();
+            string imageName = txtImage.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(productName))
             {
                 MessageBox.Show("Введите название товара");
                 txtName.Focus();
                 return;
             }
 
-            if (!decimal.TryParse(txtPrice.Text, out decimal price))
+            if (productName.Length < 2 || productName.Length > 150)
+            {
+                MessageBox.Show("Название товара должно быть от 2 до 150 символов");
+                txtName.Focus();
+                return;
+            }
+
+            if (description.Length > 1000)
+            {
+                MessageBox.Show("Описание слишком длинное. Максимум 1000 символов");
+                txtDescription.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(priceText))
+            {
+                MessageBox.Show("Введите цену");
+                txtPrice.Focus();
+                return;
+            }
+
+            if (!decimal.TryParse(priceText, out decimal price))
             {
                 MessageBox.Show("Цена введена неверно");
                 txtPrice.Focus();
                 return;
             }
 
-            if (!int.TryParse(txtQuantity.Text, out int quantity))
+            if (price <= 0)
+            {
+                MessageBox.Show("Цена должна быть больше нуля");
+                txtPrice.Focus();
+                return;
+            }
+
+            if (price > 99999999)
+            {
+                MessageBox.Show("Цена слишком большая");
+                txtPrice.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(quantityText))
+            {
+                MessageBox.Show("Введите количество товара");
+                txtQuantity.Focus();
+                return;
+            }
+
+            if (!int.TryParse(quantityText, out int quantity))
             {
                 MessageBox.Show("Количество введено неверно");
+                txtQuantity.Focus();
+                return;
+            }
+
+            if (quantity < 0)
+            {
+                MessageBox.Show("Количество не может быть отрицательным");
+                txtQuantity.Focus();
+                return;
+            }
+
+            if (quantity > 999999)
+            {
+                MessageBox.Show("Количество слишком большое");
                 txtQuantity.Focus();
                 return;
             }
@@ -122,20 +184,26 @@ namespace CloneShop.Pages
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtImage.Text))
+            if (string.IsNullOrWhiteSpace(imageName))
             {
-                MessageBox.Show("Выберите изображение товара");
+                MessageBox.Show("Выберите основное изображение");
                 return;
             }
 
-            currentProduct.ProductName = txtName.Text;
-            currentProduct.Description = txtDescription.Text;
+            if (imageName.Length > 255)
+            {
+                MessageBox.Show("Имя файла изображения слишком длинное");
+                return;
+            }
+
+            currentProduct.ProductName = productName;
+            currentProduct.Description = string.IsNullOrWhiteSpace(description) ? null : description;
             currentProduct.Price = price;
             currentProduct.QuantityInStock = quantity;
             currentProduct.CategoryID = (int)cmbCategory.SelectedValue;
             currentProduct.BrandID = (int)cmbBrand.SelectedValue;
             currentProduct.StatusID = (int)cmbStatus.SelectedValue;
-            currentProduct.MainImage = txtImage.Text;
+            currentProduct.MainImage = imageName;
 
             try
             {
@@ -144,32 +212,40 @@ namespace CloneShop.Pages
                     AppConnect.model01.Products.Add(currentProduct);
                 }
 
+                AppConnect.model01.SaveChanges();
 
                 var oldImages = AppConnect.model01.ProductImages
-     .Where(x => x.ProductID == currentProduct.ProductID)
-     .ToList();
+                    .Where(x => x.ProductID == currentProduct.ProductID)
+                    .ToList();
 
                 foreach (var oldImage in oldImages)
                 {
                     AppConnect.model01.ProductImages.Remove(oldImage);
                 }
 
-                foreach (var imageName in additionalImages)
+                foreach (var additionalImageName in additionalImages)
                 {
+                    if (string.IsNullOrWhiteSpace(additionalImageName))
+                        continue;
+
+                    if (additionalImageName.Length > 255)
+                        continue;
+
                     ProductImages newImage = new ProductImages();
                     newImage.ProductID = currentProduct.ProductID;
-                    newImage.ImagePath = imageName;
+                    newImage.ImagePath = additionalImageName;
 
                     AppConnect.model01.ProductImages.Add(newImage);
                 }
 
                 AppConnect.model01.SaveChanges();
+
                 MessageBox.Show("Товар сохранен");
                 AppFrame.frmMain.GoBack();
             }
-            catch (DbEntityValidationException ex)
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
             {
-                StringBuilder sb = new StringBuilder();
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
                 foreach (var entityErrors in ex.EntityValidationErrors)
                 {
